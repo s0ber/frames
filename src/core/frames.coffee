@@ -1,5 +1,12 @@
 class Frames
 
+  @registerLauncher: (Launcher) ->
+    @__launcher = new Launcher()
+
+  @hook: (type, callback) ->
+    throw 'Launcher is not registered' unless @__launcher
+    @__launcher.hook(type, callback)
+
   @start: ->
     return unless @factories
     Factory.create() for id, Factory of @factories
@@ -35,4 +42,4 @@ class Frames
   @__classify: (name) ->
     name.camelize()
 
-Frames.export('framework', Frames)
+Frames.export('frames', Frames)
